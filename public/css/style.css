@@ -1,0 +1,102 @@
+body{
+    font-family: "Anek Devanagari", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container {
+    flex: 1;
+}
+.navbar{
+    height: 5rem;
+    
+}
+.fa-compass {
+    font-size: 2.5rem !important;
+    color: red;
+
+}
+.nav-link {
+    font-weight: 500 !important;
+    color: rgb(40, 40, 40) !important;
+    font-size: 1.2rem !important;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(231, 231, 231);
+    border-top: solid rgb(62, 62, 62) 0.5px;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social {
+   
+    width: 100%;
+
+}
+.social i{
+    margin: 15px;
+    font-size: 1.5rem;
+    color: rgb(36, 36, 36);
+}
+.footer div {
+    width: 100%;
+
+}
+.footer-list a{
+    margin: 10px;
+    color: rgb(83, 83, 83);
+    text-decoration: none;
+    
+}
+.footer-list a:hover {
+    text-decoration: underline;
+}
+.card-img-top{
+
+    object-fit: cover;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 1rem !important;
+
+}
+.card {
+    border: none !important;
+    padding: 0 !important;
+    margin: 1rem;
+}
+
+.row a{
+    text-decoration: none !important;
+}
+.card-body {
+    padding: 0 !important;
+    font-weight: 400;
+}
+.card-img-overlay {
+opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity:0.2;
+    background-color: white;
+}
+.add-btn{ 
+    background-color: red !important;
+    border: none !important;
+    color: black !important;
+}
+.detail-btn{
+    display: flex;
+    
+}
+
+
+
+
