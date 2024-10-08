@@ -1,0 +1,27 @@
+<% layout('/layout/boilerplate') -%>
+<body>
+    <br>
+    <h2>Listings</h2>
+    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
+        <%for(list of listing){%>
+       
+            <a href="/Tripsy/<%=list.id%>">
+            <div class="card col " style="width: 20rem;">
+
+                <img src="<%=list.image.url%>" class="card-img-top" alt="<%=list.image.filename%>">
+                <div class="card-img-overlay"></div>
+
+                <div class="card-body">
+                    <b><h5 class="card-title"><%=list.title%></h5></b>
+                    <p> &#8377; <%= Number(list.price).toLocaleString('en-IN') %> /Night</p>
+
+                </div>
+              </div>
+            </a>
+        
+            <%}%>
+    </div>
+   
+   
+    
+</body>

@@ -1,0 +1,56 @@
+<% layout('/layout/boilerplate') -%>
+<body>
+    
+    <div class="row">
+        <div class="col-6 offset-2">
+            <br>
+            <h2>Edit Listing</h2>
+   <form method ="POST" action="/Tripsy/<%=list._id%>/edit?_method = PUT" >
+   
+    <div class="mb-3">
+        <lable for="Title" class="form-label">Title</lable>
+        <input type="text" name ="title" placeholder="Enter Title" class="form-control" value="<%= list.title %>" required>
+    </div>
+   
+    <div  class="mb-3">
+        <lable for="Image" class="form-label">Image url</lable>
+        <br>
+        <textarea for="Image" name="Image" placeholder="image" class="form-control" required ><%=list.image.url%></textarea>
+    </div>
+    <div class="row">
+    <div  class="mb-3 col-md-4">
+        <lable for="price col-4" class="form-label">Price</lable>
+        <br>
+        <input type= "" name ="price" placeholder="Price" class="form-control" value="<%= list.price %>" required>
+
+    </div >
+    <div  class="mb-3 col-md-8">
+        <lable for="country" class="form-label">country</lable>
+        <br>
+        <input for="country" type="text" name="country" placeholder="Country Name" class="form-control" value="<%= list.country %>" required>
+       
+    </div>
+</div>
+    
+    <div class="mb-3">
+        <lable for="description" class="form-label">description</lable>
+        <br>
+        <textarea for="description" name="description" placeholder="Description" class="form-control" required><%=list.description%></textarea>
+    </div>
+    
+    
+    <div  class="mb-3">
+         <lable for="location" class="form-label">location</lable>
+         <br>
+        <textarea name="location" placeholder="Address" class="form-control" required><%=list.location%></textarea>
+       
+    </div >
+    <button class="btn btn-dark mb-3 add-btn">Edit</button>
+</form>
+</div>
+
+   
+</div>
+
+    
+</body>
