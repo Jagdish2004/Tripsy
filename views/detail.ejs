@@ -27,7 +27,7 @@
     </form>
 </div>
 <div class="review">
-    <form action="/Tripsy/<%=list._id%>/newReview" method="post" class="p-4 border rounded shadow">
+    <form action="/Tripsy/<%=list._id%>/review/newReview" method="post" class="p-4 border rounded shadow">
         <h4 class="mb-3">Leave a Review</h4>
         
         <div class="mb-3">
@@ -55,8 +55,8 @@
                                 <h5 class="card-title"><%= review.user %></h5> <!-- Assuming review.user holds the reviewer's name -->
                                 <h6 class="card-subtitle mb-2 text-muted">Rating: ⭐<%= review.rangeInput %>/5</h6>
                                 <p class="card-text"><%= review.comment %></p>
-                                <form action="/Tripsy/<%= list._id %>/deleteReview?_method=DELETE" method="POST">
-                                    <input type="hidden" name="reviewId" value="<%= review._id %>">
+                                <form action="/Tripsy/<%= list._id %>/review/<%= review._id %>/deleteReview?_method=DELETE" method="POST">
+                                   
                                     <button type="submit" class="btn btn-dark mb-5 offset-3">Delete</button>
                                 </form>
                             </div>
