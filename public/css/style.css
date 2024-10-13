@@ -97,6 +97,23 @@ opacity: 0;
     
 }
 
+.alert-container {
+    width: 400px; 
+    margin: 20px auto; 
+    padding: 10px; 
+    border-radius: 5px;
+    align-self: center; 
+}
+
+.alert {
+    margin: 0;
+}
+
+.alert p {
+    margin: 0;
+}
+
+
 
 
 

@@ -32,6 +32,7 @@ router.post("/newProperty", wrapAsync(async (req, res, next) => {
 
     const list = new Listing(value); // Use the validated value
     await list.save();
+    req.flash('success', 'Listing Created Successfully!');
     res.redirect("/Tripsy");
 }));
 
@@ -41,6 +42,11 @@ router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     // Populate reviews in the list object
     let list = await Listing.findById(id).populate('reviews').exec(); 
+    if(!list){
+        req.flash('error', 'Requested listing does not Exist!');
+        res.redirect("/Tripsy");
+        
+    }
     res.render("detail", { list });
 }));
 
@@ -49,6 +55,11 @@ router.get("/:id", wrapAsync(async (req, res) => {
 router.get("/:id/edit",wrapAsync(async (req, res) =>{
     let {id} = req.params;
     let list = await Listing.findById(id);
+    if(!list){
+        req.flash('error', 'Requested listing does not Exist!');
+        res.redirect("/Tripsy");
+        
+    }
     res.render("editProperty",{list});
 }));
 router.post("/:id/edit", wrapAsync(async (req, res,next) =>{
@@ -56,6 +67,7 @@ router.post("/:id/edit", wrapAsync(async (req, res,next) =>{
     let list = req.body;
     
         await Listing.findByIdAndUpdate(id, list,{new:true});
+        req.flash('success', 'Listing Updated Successfully!');
         res.redirect(`/Tripsy/${id}`);    
 }));
 
@@ -63,6 +75,7 @@ router.post("/:id/edit", wrapAsync(async (req, res,next) =>{
 router.get("/:id/delete", wrapAsync(async (req, res) =>{
     let {id} = req.params;
     let list = await Listing.findByIdAndDelete(id);
+    req.flash('success', 'Listing Deleted Successfully!');
     res.redirect("/Tripsy");
     
 }));

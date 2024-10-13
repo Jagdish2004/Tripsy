@@ -25,6 +25,7 @@ router.post("/newReview", async (req, res) => {
     let list = await Listing.findById(id);
     list.reviews.push(review._id);
     await list.save(); 
+    req.flash('success', 'Review Added Successfully!');
     res.redirect(`/Tripsy/${id}`);
 });
 
@@ -35,6 +36,7 @@ router.delete("/:reviewId/deleteReview", wrapAsync(async (req, res) => {
     let review = await reviews.findByIdAndDelete(reviewId);
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
 
+    req.flash('success', 'Review Deleted Successfully!');
     res.redirect(`/Tripsy/${id}`);
 }));
 
