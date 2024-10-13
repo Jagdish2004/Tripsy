@@ -1,0 +1,30 @@
+<div class="alert-container">
+    <!-- success flash -->
+    <% if (success && success.length > 0) { %>
+        <div class="alert-container alert alert-success alert-dismissible fade show " role="alert" id="flashMessage">
+            <p><%= success[0] %></p>
+        </div>
+    <% } %>
+
+    <!-- error flash -->
+    <% if (error && error.length > 0) { %>
+        <div class="alert-container alert alert-danger alert-dismissible fade show" role="alert" id="flashMessage">
+            <p><%= error[0] %></p>
+        </div>
+    <% } %>
+    
+</div>
+
+<script>
+    // Dismiss the alert automatically after 2 seconds
+    setTimeout(function () {
+        const flashMessage = document.getElementById('flashMessage');
+        if (flashMessage) {
+            flashMessage.classList.remove('show');
+            flashMessage.classList.add('fade');
+            setTimeout(function () {
+                flashMessage.remove();
+            }, 150);
+        }
+    }, 3000); 
+</script>
