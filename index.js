@@ -6,11 +6,15 @@ const path = require('path');
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const home = require("./routes/home.js");
+const User = require('./routes/user.js')
+const userSchema =require('./models/user.js');
 const methodOverride = require('method-override');
 const expressError = require('./utils/expressError');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 engine = require('ejs-mate');
 
 
@@ -55,17 +59,27 @@ app.use(session(sessioninfo));
 app.use(flash());
 app.use(cookieParser());
 
+app.use(passport.initialize());
+app.use(passport.session());
 
+passport.use(new LocalStrategy(userSchema.authenticate()));
+passport.serializeUser(userSchema.serializeUser());
+passport.deserializeUser(userSchema.deserializeUser());
 
 //middleware for flashing messages
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    res.locals.username = req.flash('username');
+    res.locals.email = req.flash('email');
     next();
 });
 
 // Home routes
 app.use("/", home);
+
+//user routes
+app.use("/", User);
 
 // Listing routes
 app.use("/Tripsy", listings);
