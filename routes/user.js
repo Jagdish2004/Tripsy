@@ -6,17 +6,24 @@ const expressError = require('../utils/expressError');
 const passport = require('passport');
 
 router.get("/signup", (req, res) => {
-    res.render("users/signUp", {
-    });
+    res.render("users/signUp");
   });
+
 router.post("/signup", wrapAsync(async (req, res) => {
     const { username, email, password } = req.body;
     let user = new User({ username, email });
   
     try {
-      await User.register(user, password);
-      req.flash('success', 'Welcome to Tripsy!');
-      return res.redirect('/Tripsy');
+      const registeredUser = await User.register(user, password);
+
+      req.login(registeredUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash('success', 'Welcome to Tripsy!');
+        return res.redirect('/Tripsy');
+      });
+
     } catch (err) {
 
       req.flash('error', err.message);
@@ -30,12 +37,24 @@ router.post("/signup", wrapAsync(async (req, res) => {
 router.get("/login",(req,res)=>{
     res.render("users/login");
 });
+
 router.post("/login",passport.authenticate("local" , {
     failureRedirect: '/login',
     failureFlash: true}),
     async (req,res)=>{
         req.flash('success','Welcome back to Tripsy!');
         res.redirect('/Tripsy');
+});
+
+router.get("/logout",(req,res)=>{
+  req.logout((err) => {
+    if (err) {
+        req.flash('error' , 'Error, Try again after some time');
+    }
+    req.flash('success', 'You have been logged out successfully.');
+    res.redirect('/tripsy'); 
+});
+
 });
 
 
