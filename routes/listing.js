@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Listing = require("../models/listing");
 const joiSchema = require("../models/joiSchema");
+const {Auth} = require('../middleware/midd');
 const ejs = require('ejs');
 const wrapAsync = require('../utils/wrapAsync');
 const expressError = require('../utils/expressError');
@@ -14,27 +15,26 @@ router.get("/", wrapAsync(async (req,res)=>{
 }));
 
 //creating new properties
-
-router.get("/newProperty",(req,res)=>{
-     res.render("newProperty");
+router.get("/newProperty",Auth,(req,res)=>{
+    res.render("newProperty");
 
 });
 
 router.post("/newProperty", wrapAsync(async (req, res, next) => {
-    const { error, value } = joiSchema.validate(req.body, { abortEarly: false });
-    
-    if (error) {
-        return res.status(400).json({
-            status: 'error',
-            message: error.details.map(detail => detail.message).join(', ')
-        });
-    }
+   const { error, value } = joiSchema.validate(req.body, { abortEarly: false });
+   
+   if (error) {
+       return res.status(400).json({
+           status: 'error',
+           message: error.details.map(detail => detail.message).join(', ')
+       });
+   }
 
-    const list = new Listing(value); // Use the validated value
-    await list.save();
-    req.flash('success', 'Listing Created Successfully!');
-    res.redirect("/Tripsy");
-}));
+   const list = new Listing(value); // Use the validated value
+   await list.save();
+   req.flash('success', 'Listing Created Successfully!');
+   res.redirect("/Tripsy");
+})); 
 
 
 // detail view of properties
@@ -52,7 +52,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 
 //updating the details of properties
 
-router.get("/:id/edit",wrapAsync(async (req, res) =>{
+router.get("/:id/edit",Auth,wrapAsync(async (req, res) =>{
     let {id} = req.params;
     let list = await Listing.findById(id);
     if(!list){
