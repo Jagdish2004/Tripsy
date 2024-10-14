@@ -112,6 +112,25 @@ opacity: 0;
 .alert p {
     margin: 0;
 }
+.move-up {
+    margin-top: -50px; /* Adjust this value as needed */
+  }
+  
+  .custom-container {
+    height: calc(110% + 1rem); /* 10% more than the card's height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Optional: Limit container height on smaller screens */
+  @media (max-height: 600px) {
+    .custom-container {
+      height: auto;
+      padding-top: 20px;
+    }
+  }
+  
 
 
 
