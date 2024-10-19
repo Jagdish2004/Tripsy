@@ -72,7 +72,8 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     res.locals.username = req.flash('username');
     res.locals.email = req.flash('email');
-    res.locals.currUser = req.user; 
+    res.locals.currUser = req.user;
+    res.locals.redirectUrl = req.originalUrl;
     next();
 });
 
