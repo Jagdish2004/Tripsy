@@ -32,7 +32,11 @@ let ListingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "reviews",
         }
-]
+     ],
+     owner:{
+        type: Schema.Types.ObjectId,
+        ref: "User",
+     }
 
 });
 

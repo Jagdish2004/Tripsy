@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Listing = require("../models/listing");
 const joiSchema = require("../models/joiSchema");
-const {Auth} = require('../middleware/midd');
+const {Auth,isOwner} = require('../middleware/midd');
 const ejs = require('ejs');
 const wrapAsync = require('../utils/wrapAsync');
 const expressError = require('../utils/expressError');
@@ -31,6 +31,8 @@ router.post("/newProperty", wrapAsync(async (req, res, next) => {
    }
 
    const list = new Listing(value); // Use the validated value
+   list.owner = req.user._id;
+   console.log(list);
    await list.save();
    req.flash('success', 'Listing Created Successfully!');
    res.redirect("/Tripsy");
@@ -41,7 +43,10 @@ router.post("/newProperty", wrapAsync(async (req, res, next) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     // Populate reviews in the list object
-    let list = await Listing.findById(id).populate('reviews').exec(); 
+    let list = await Listing.findById(id)
+    .populate("reviews")
+    .populate("owner")
+    .exec(); 
     if(!list){
         req.flash('error', 'Requested listing does not Exist!');
         res.redirect("/Tripsy");
@@ -52,7 +57,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 
 //updating the details of properties
 
-router.get("/:id/edit",Auth,wrapAsync(async (req, res) =>{
+router.get("/:id/edit",Auth,isOwner,wrapAsync(async (req, res) =>{
     let {id} = req.params;
     let list = await Listing.findById(id);
     if(!list){
@@ -62,7 +67,7 @@ router.get("/:id/edit",Auth,wrapAsync(async (req, res) =>{
     }
     res.render("editProperty",{list});
 }));
-router.post("/:id/edit", wrapAsync(async (req, res,next) =>{
+router.post("/:id/edit",isOwner, wrapAsync(async (req, res,next) =>{
     let {id} = req.params;
     let list = req.body;
     
@@ -72,7 +77,7 @@ router.post("/:id/edit", wrapAsync(async (req, res,next) =>{
 }));
 
 //deleting list
-router.get("/:id/delete", wrapAsync(async (req, res) =>{
+router.get("/:id/delete",isOwner, wrapAsync(async (req, res) =>{
     let {id} = req.params;
     let list = await Listing.findByIdAndDelete(id);
     req.flash('success', 'Listing Deleted Successfully!');

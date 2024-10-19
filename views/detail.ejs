@@ -9,6 +9,9 @@
     <div class="card" style="width: 30rem;">
         <img src="<%=list.image.url%>" class="card-img-top" alt="<%list.image.filename%>">
         <div class="card-body">
+            
+            <i>owner: <%=list.owner.username%></i>
+            <br>
             <br>
           <h5 class="card-title "><%= list.title%></h5>
           <h5>  &#8377; <%=list.price.toLocaleString("en-IN")%>/Night</h5>
@@ -17,15 +20,20 @@
          
         </div>
       </div>
-<div class="detail-btn">
-    <form action="/Tripsy/<%=list._id%>/edit" mathod="GET">
-        <button class="btn btn-dark mb-3 add-btn offset-2">Edit</button>
-    </form>
-    <br>
-    <form action="/Tripsy/<%=list._id%>/delete" mathod="GET">
-        <button class="btn btn-dark mb-5 offset-3">Delete</button>
-    </form>
-</div>
+     <% if(currUser && currUser._id.equals(list.owner._id)){ %>
+      
+        <div class="detail-btn">
+            <form action="/Tripsy/<%=list._id%>/edit" mathod="GET">
+                <button class="btn btn-dark mb-3 add-btn offset-2">Edit</button>
+            </form>
+            <br>
+            <form action="/Tripsy/<%=list._id%>/delete" mathod="GET">
+                <button class="btn btn-dark mb-5 offset-3">Delete</button>
+            </form>
+        </div>
+   <% } %>
+   
+
 <div class="review">
     <form action="/Tripsy/<%=list._id%>/review/newReview" method="post" class="p-4 border rounded shadow">
         <h4 class="mb-3">Leave a Review</h4>
