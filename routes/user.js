@@ -24,7 +24,7 @@ router.post("/signup", wrapAsync(async (req, res) => {
         req.flash('success', 'Welcome to Tripsy!');
         return res.redirect('/Tripsy');
       });
-
+ 
     } catch (err) {
 
       req.flash('error', err.message);
@@ -45,10 +45,15 @@ router.post("/login",saveUrl,passport.authenticate("local" , {
     
     async (req,res)=>{
         req.flash('success','Welcome back to Tripsy!');
+
+        
         let redirectUrl = res.locals.redirectUrl || "/Tripsy";
         if (redirectUrl === "/login") {
           redirectUrl = "/Tripsy";
         }
+        if (redirectUrl.includes("/review/")) {
+          redirectUrl = redirectUrl.replace("/review/newReview", "");
+      }
     
         delete req.session.redirectUrl;
         

@@ -9,6 +9,7 @@ const expressError = require('../utils/expressError');
 
 
 router.get("/", wrapAsync(async (req,res)=>{
+    delete req.session.redirectUrl;
     let listing = await Listing.find();
     res.render("index",{listing});
 
@@ -20,7 +21,7 @@ router.get("/newProperty",Auth,(req,res)=>{
 
 });
 
-router.post("/newProperty", wrapAsync(async (req, res, next) => {
+router.post("/newProperty", Auth, wrapAsync(async (req, res, next) => {
    const { error, value } = joiSchema.validate(req.body, { abortEarly: false });
    
    if (error) {
@@ -32,7 +33,6 @@ router.post("/newProperty", wrapAsync(async (req, res, next) => {
 
    const list = new Listing(value); // Use the validated value
    list.owner = req.user._id;
-   console.log(list);
    await list.save();
    req.flash('success', 'Listing Created Successfully!');
    res.redirect("/Tripsy");
@@ -44,7 +44,12 @@ router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     // Populate reviews in the list object
     let list = await Listing.findById(id)
-    .populate("reviews")
+    .populate({
+        path: "reviews",
+        populate:{
+            path:"owner"
+        },
+        })
     .populate("owner")
     .exec(); 
     if(!list){

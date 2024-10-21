@@ -9,6 +9,7 @@ body{
 .container {
     flex: 1;
 }
+/* -----------------navbar---------------- */
 .navbar{
     height: 5rem;
     
@@ -23,6 +24,8 @@ body{
     color: rgb(40, 40, 40) !important;
     font-size: 1.2rem !important;
 }
+
+/* --------------footer----------------- */
 .footer {
     display: flex;
     justify-content: center;
@@ -59,6 +62,7 @@ body{
 .footer-list a:hover {
     text-decoration: underline;
 }
+/* --------------listing card-------------------- */
 .card-img-top{
 
     object-fit: cover;
@@ -87,6 +91,7 @@ opacity: 0;
     opacity:0.2;
     background-color: white;
 }
+/* --------------buttons---------------- */
 .add-btn{ 
     background-color: red !important;
     border: none !important;
@@ -96,41 +101,85 @@ opacity: 0;
     display: flex;
     
 }
+/* ------------------popup------------------ */
 
-.alert-container {
-    width: 400px; 
-    margin: 20px auto; 
-    padding: 10px; 
-    border-radius: 5px;
-    align-self: center; 
-}
-
-.alert {
-    margin: 0;
-}
-
-.alert p {
-    margin: 0;
-}
-.move-up {
-    margin-top: -50px; /* Adjust this value as needed */
-  }
-  
-  .custom-container {
-    height: calc(110% + 1rem); /* 10% more than the card's height */
+.custom-container {
+    height: calc(10% + 1rem);
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
-  /* Optional: Limit container height on smaller screens */
+
+.alert-container {
+    position: relative;
+    width: 400px;
+    height: 10px;
+    border-radius: 5px;
+    z-index: 1050;
+}
+
+.popup {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    animation: slide-in 0.5s ease-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.fade-out {
+    animation: fade-out 0.5s forwards;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+ /* -----------------------rating card---------------- */
   @media (max-height: 600px) {
     .custom-container {
       height: auto;
       padding-top: 20px;
     }
   }
-  
+  .star-rating {
+    display: flex;
+    direction: row-reverse; 
+    justify-content: flex-start;
+}
+
+.star {
+    cursor: pointer;
+    color: #ddd; 
+    font-size: 2rem; 
+    padding: 0 5px; 
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked ~ .star {
+    color: #f39c12; 
+}
+
 
 
 
