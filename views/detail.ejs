@@ -1,89 +1,103 @@
 <% layout('/layout/boilerplate') -%>
 <body>
     <br>
-    
     <div class="row">
-        <div class="col-6 offset-3 ">
-            <h2 class="mb-3 offset-1"><%= list.title%></h2>
-    
-    <div class="card" style="width: 30rem;">
-        <img src="<%=list.image.url%>" class="card-img-top" alt="<%list.image.filename%>">
-        <div class="card-body">
-            
-            <i>owner: <%=list.owner.username%></i>
-            <br>
-            <br>
-          <h5 class="card-title "><%= list.title%></h5>
-          <h5>  &#8377; <%=list.price.toLocaleString("en-IN")%>/Night</h5>
-          <p class="card-text"><%= list.description %></p>
-          <h6><%= list.location %> , <%= list.country %>  </h6>
-         
-        </div>
-      </div>
-     <% if(currUser && currUser._id.equals(list.owner._id)){ %>
-      
-        <div class="detail-btn">
-            <form action="/Tripsy/<%=list._id%>/edit" mathod="GET">
-                <button class="btn btn-dark mb-3 add-btn offset-2">Edit</button>
-            </form>
-            <br>
-            <form action="/Tripsy/<%=list._id%>/delete" mathod="GET">
-                <button class="btn btn-dark mb-5 offset-3">Delete</button>
-            </form>
-        </div>
-   <% } %>
-   
+        <div class="col-6 offset-3">
+            <h2 class="mb-3 offset-1"><%= list.title %></h2>
 
-<div class="review">
-    <form action="/Tripsy/<%=list._id%>/review/newReview" method="post" class="p-4 border rounded shadow">
-        <h4 class="mb-3">Leave a Review</h4>
-        
-        <div class="mb-3">
-            <label for="rangeInput" class="form-label">Star Rating:</label>
-            <input type="range" id="rangeInput" name="rangeInput" class="form-range" min="1" max="5" step="1" value="1" oninput="this.nextElementSibling.value = this.value">
-            <output class="ms-2">1</output>
+            <div class="card" style="width: 30rem;">
+                <img src="<%= list.image.url %>" class="card-img-top" alt="<%= list.image.filename %>">
+                <div class="card-body">
+                    <i>Owner: <%= list.owner.username %></i>
+                    <br><br>
+                    <h5 class="card-title"><%= list.title %></h5>
+                    <h5>&#8377; <%= list.price.toLocaleString("en-IN") %>/Night</h5>
+                    <p class="card-text"><%= list.description %></p>
+                    <h6><%= list.location %>, <%= list.country %></h6>
+                </div>
+            </div>
+
+            <% if (currUser && currUser._id.equals(list.owner._id)) { %>
+                <div class="detail-btn">
+                    <form action="/Tripsy/<%= list._id %>/edit" method="GET">
+                        <button class="btn btn-dark mb-3 add-btn offset-2">Edit</button>
+                    </form>
+                    <br>
+                    <form action="/Tripsy/<%= list._id %>/delete" method="GET">
+                        <button class="btn btn-dark mb-5 offset-3">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+<hr>
+            <div class="review">
+                
+                <form action="/Tripsy/<%= list._id %>/review/newReview" method="post" class="p-3 border rounded shadow" style="height: auto;">
+    <h4 class="mb-3">Leave a Review</h4>
+
+    <div class="mb-3">
+        <label class="form-label">Star Rating:</label>
+        <div class="star-rating" style="font-size: 1.5rem; display: flex; flex-direction: row-reverse; margin-right: 40%;">
+            <input type="radio" name="rangeInput" id="star5" value="5" style="display: none;" />
+            <label for="star5" class="star" style="cursor: pointer;">★</label>
+            <input type="radio" name="rangeInput" id="star4" value="4" style="display: none;" />
+            <label for="star4" class="star" style="cursor: pointer;">★</label>
+            <input type="radio" name="rangeInput" id="star3" value="3" style="display: none;" />
+            <label for="star3" class="star" style="cursor: pointer;">★</label>
+            <input type="radio" name="rangeInput" id="star2" value="2" style="display: none;" />
+            <label for="star2" class="star" style="cursor: pointer;">★</label>
+            <input type="radio" name="rangeInput" id="star1" value="1" style="display: none;" />
+            <label for="star1" class="star" style="cursor: pointer;">★</label>
         </div>
-        
-        <div class="mb-3">
-            <label for="comment" class="form-label">Comment:</label>
-            <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Write your comment..." required></textarea>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <div class="show-review">
-        <div class="card mb-3">
-            <div class="card-body">
+    </div>
+
+    <div class="mb-3">
+        <label for="comment" class="form-label">Comment:</label>
+        <textarea name="comment" id="comment" class="form-control" rows="3" placeholder="Write your comment..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+                
+                
+                
                
-
+                <br>
+                <h4>Reviews</h4>
                 <div class="show-review">
-                    <% for (let review of list.reviews) { %>
+                    <% if (list.reviews && list.reviews.length > 0) { %>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h5 class="card-title"><%= review.user %></h5> <!-- Assuming review.user holds the reviewer's name -->
-                                <h6 class="card-subtitle mb-2 text-muted">Rating: ⭐<%= review.rangeInput %>/5</h6>
-                                <p class="card-text"><%= review.comment %></p>
-                                <form action="/Tripsy/<%= list._id %>/review/<%= review._id %>/deleteReview?_method=DELETE" method="POST">
-                                   
-                                    <button type="submit" class="btn btn-dark mb-5 offset-3">Delete</button>
-                                </form>
+                                <% for (let review of list.reviews) { %>
+                                    <div class="card mb-3 shadow-sm" style="background-color: #f8f9fa; margin-left: 15px; margin-top: 10px;">
+                                        <div class="card-body" style="padding: 1.25rem;">
+                                            <h6 class="card-title mb-2" style="margin-bottom: 0.5rem; font-weight: bold; margin-left: 10px;"> 
+                                                <%= review.owner.username || review.owner %>
+                                            </h6> <!-- Reviewer's name -->
+                                            <h6 class="card-subtitle mb-2 text-muted" style="margin-bottom: 0.5rem; margin-left: 10px;">
+                                                Rating: ⭐<%= review.rangeInput %>/5
+                                            </h6> <!-- Star rating -->
+                                            <p class="card-text" style="margin-bottom: 0.5rem; margin-left: 10px;">
+                                                <%= review.comment %>
+                                            </p> <!-- Review comment -->
+                                    
+                                            <% if (currUser && currUser._id.equals(review.owner._id)) { %> <!-- Check if current user is the owner of the review -->
+                                                <form action="/Tripsy/<%= list._id %>/review/<%= review._id %>/deleteReview?_method=DELETE" method="POST">
+                                                    <button type="submit" class="btn btn-danger" style="margin-left: 10px;">Delete</button> <!-- Delete button -->
+                                                </form>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                <% } %>
                             </div>
                         </div>
+                    <% } else { %>
+                        <p>No reviews yet.</p>
                     <% } %>
                 </div>
-                
-
-
-                
             </div>
         </div>
     </div>
-    
-</div>
-
-</div>
-</div>
-    
-    
-    
 </body>

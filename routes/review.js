@@ -5,9 +5,10 @@ const reviews = require("../models/reviews");
 const wrapAsync = require('../utils/wrapAsync');
 const joiReview = require("../models/joiReview");
 const Listing = require("../models/listing");
+const {Auth,isOwner,isReviewOwner } = require("../middleware/midd")
 
 
-router.post("/newReview", async (req, res) => {
+router.post("/newReview", Auth,async (req, res) => {
     let { id } = req.params;
 
     const { error, value } = joiReview.validate(req.body, { abortEarly: false });
@@ -20,6 +21,7 @@ router.post("/newReview", async (req, res) => {
     }
 
     let review = new reviews(value);
+    review.owner = req.user._id;
 
     await review.save();
     let list = await Listing.findById(id);
@@ -30,7 +32,7 @@ router.post("/newReview", async (req, res) => {
 });
 
 // delete review
-router.delete("/:reviewId/deleteReview", wrapAsync(async (req, res) => {
+router.delete("/:reviewId/deleteReview", Auth,isReviewOwner, wrapAsync(async (req, res) => {
     const { id, reviewId} = req.params;
 
     let review = await reviews.findByIdAndDelete(reviewId);

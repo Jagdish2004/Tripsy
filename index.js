@@ -83,11 +83,14 @@ app.use("/", home);
 //user routes
 app.use("/", User);
 
+
 // Listing routes
 app.use("/Tripsy", listings);
 
 // Review routes
 app.use("/Tripsy/:id/review", reviews);
+
+
 
 // Error handling
 app.all("*", (req, res, next) => {
