@@ -1,93 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const Listing = require("../models/listing");
-const joiSchema = require("../models/joiSchema");
 const {Auth,isOwner} = require('../middleware/midd');
 const ejs = require('ejs');
 const wrapAsync = require('../utils/wrapAsync');
 const expressError = require('../utils/expressError');
+const listingController = require('../controller/listing');
 
 
-router.get("/", wrapAsync(async (req,res)=>{
-    delete req.session.redirectUrl;
-    let listing = await Listing.find();
-    res.render("index",{listing});
-
-}));
+router.get("/", wrapAsync(listingController.showListing));
 
 //creating new properties
-router.get("/newProperty",Auth,(req,res)=>{
-    res.render("newProperty");
+router.get("/newProperty",Auth,listingController.newListingForm);
 
-});
-
-router.post("/newProperty", Auth, wrapAsync(async (req, res, next) => {
-   const { error, value } = joiSchema.validate(req.body, { abortEarly: false });
-   
-   if (error) {
-       return res.status(400).json({
-           status: 'error',
-           message: error.details.map(detail => detail.message).join(', ')
-       });
-   }
-
-   const list = new Listing(value); // Use the validated value
-   list.owner = req.user._id;
-   await list.save();
-   req.flash('success', 'Listing Created Successfully!');
-   res.redirect("/Tripsy");
-})); 
+router.post("/newProperty", Auth, wrapAsync(listingController.newListing)); 
 
 
 // detail view of properties
-router.get("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    // Populate reviews in the list object
-    let list = await Listing.findById(id)
-    .populate({
-        path: "reviews",
-        populate:{
-            path:"owner"
-        },
-        })
-    .populate("owner")
-    .exec(); 
-    if(!list){
-        req.flash('error', 'Requested listing does not Exist!');
-        res.redirect("/Tripsy");
-        
-    }
-    res.render("detail", { list });
-}));
+router.get("/:id", wrapAsync(listingController.detailListing));
 
 //updating the details of properties
 
-router.get("/:id/edit",Auth,isOwner,wrapAsync(async (req, res) =>{
-    let {id} = req.params;
-    let list = await Listing.findById(id);
-    if(!list){
-        req.flash('error', 'Requested listing does not Exist!');
-        res.redirect("/Tripsy");
-        
-    }
-    res.render("editProperty",{list});
-}));
-router.post("/:id/edit",isOwner, wrapAsync(async (req, res,next) =>{
-    let {id} = req.params;
-    let list = req.body;
-    
-        await Listing.findByIdAndUpdate(id, list,{new:true});
-        req.flash('success', 'Listing Updated Successfully!');
-        res.redirect(`/Tripsy/${id}`);    
-}));
+router.get("/:id/edit",Auth,isOwner,wrapAsync(listingController.updateListingForm));
+router.post("/:id/edit",isOwner, wrapAsync(listingController.updateListing));
 
 //deleting list
-router.get("/:id/delete",isOwner, wrapAsync(async (req, res) =>{
-    let {id} = req.params;
-    let list = await Listing.findByIdAndDelete(id);
-    req.flash('success', 'Listing Deleted Successfully!');
-    res.redirect("/Tripsy");
-    
-}));
+router.get("/:id/delete",isOwner, wrapAsync(listingController.destroyListing));
 
 module.exports = router;
