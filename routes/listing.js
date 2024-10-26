@@ -5,6 +5,9 @@ const ejs = require('ejs');
 const wrapAsync = require('../utils/wrapAsync');
 const expressError = require('../utils/expressError');
 const listingController = require('../controller/listing');
+const multer  = require('multer')
+const {storage} = require('../cloudConfig');
+const upload = multer({storage});
 
 
 router.get("/", wrapAsync(listingController.showListing));
@@ -12,7 +15,7 @@ router.get("/", wrapAsync(listingController.showListing));
 //creating new properties
 router.get("/newProperty",Auth,listingController.newListingForm);
 
-router.post("/newProperty", Auth, wrapAsync(listingController.newListing)); 
+router.post("/newProperty", Auth, upload.single('image'), wrapAsync(listingController.newListing)); 
 
 
 // detail view of properties

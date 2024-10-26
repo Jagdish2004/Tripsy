@@ -12,22 +12,37 @@ module.exports.newListingForm =(req,res)=>{
 
 }
 module.exports.newListing = async (req, res, next) => {
-    const { error, value } = joiSchema.validate(req.body, { abortEarly: false });
-    
-    if (error) {
-        return res.status(400).json({
-            status: 'error',
-            message: error.details.map(detail => detail.message).join(', ')
-        });
-    }
- 
-    const list = new Listing(value); // Use the validated value
-    list.owner = req.user._id;
-    await list.save();
-    req.flash('success', 'Listing Created Successfully!');
-    res.redirect("/Tripsy");
- }
 
+    const file = req.file || {
+      path: "https://res.cloudinary.com/dfurdxjub/image/upload/v1729959568/Tripsy_DEV/bpvxmufhwpzlsmulgiue.jpg",
+      filename: "No-Image-Availble",
+    };
+
+    const { error, value } = joiSchema.validate(
+      { ...req.body, image: { filename: file.filename, url: file.path } },
+      { abortEarly: false }
+    );
+  
+    if (error) {
+      console.log(error);
+      return res.status(400).json({
+        status: 'error',
+        message: error.details.map(detail => detail.message).join(', '),
+      });
+    }
+  
+    try {
+      const list = new Listing(value);
+      list.owner = req.user._id;
+  
+      await list.save();
+      req.flash('success', 'Listing Created Successfully!');
+      res.redirect("/Tripsy");
+    } catch (err) {
+      next(err);
+    }
+  };
+  
  module.exports.detailListing = async (req, res) => {
     let { id } = req.params;
     // Populate reviews in the list object
