@@ -15,7 +15,7 @@ module.exports.newListing = async (req, res, next) => {
 
     const file = req.file || {
       path: "https://res.cloudinary.com/dfurdxjub/image/upload/v1729959568/Tripsy_DEV/bpvxmufhwpzlsmulgiue.jpg",
-      filename: "No-Image-Availble",
+      filename: "No-Image-Available",
     };
 
     const { error, value } = joiSchema.validate(
@@ -73,14 +73,38 @@ module.exports.updateListingForm = async (req, res) =>{
     res.render("editProperty",{list});
 }
 
-module.exports.updateListing = async (req, res,next) =>{
-    let {id} = req.params;
-    let list = req.body;
-    
-        await Listing.findByIdAndUpdate(id, list,{new:true});
-        req.flash('success', 'Listing Updated Successfully!');
-        res.redirect(`/Tripsy/${id}`);    
-}
+module.exports.updateListing = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const list = { ...req.body };
+
+    if (req.file) {
+      list.image = {
+        filename: req.file.filename,
+        url: req.file.path,
+       
+      };
+    }
+
+    console.log('Updated List:', list);
+    const updatedListing = await Listing.findByIdAndUpdate(id, list, { 
+      new: true, 
+      runValidators: true ,
+    });
+
+    if (!updatedListing) {
+      req.flash('error', 'Listing not found!');
+      return res.redirect('/Tripsy'); 
+    }
+
+    req.flash('success', 'Listing Updated Successfully!');
+    res.redirect(`/Tripsy/${id}`);
+  } catch (error) {
+    console.error('Error updating listing:', error);
+    req.flash('error', 'Something went wrong. Please try again!');
+    next(error);
+  }
+};
 
 module.exports.destroyListing = async (req, res) =>{
     let {id} = req.params;

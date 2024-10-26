@@ -5,7 +5,7 @@
         <div class="col-6 offset-2">
             <br>
             <h2>Edit Listing</h2>
-   <form method ="POST" action="/Tripsy/<%=list._id%>/edit?_method = PUT" >
+   <form method ="POST" action="/Tripsy/<%=list._id%>/edit?_method = PUT"  enctype="multipart/form-data">
    
     <div class="mb-3">
         <lable for="Title" class="form-label">Title</lable>
@@ -15,8 +15,8 @@
     <div  class="mb-3">
         <lable for="Image" class="form-label">Image url</lable>
         <br>
-        <textarea for="Image" name="Image" placeholder="image" class="form-control" required ><%=list.image.url%></textarea>
-    </div>
+        <input id="image" for="image" type="file" name="image" class="form-control">
+        </div>
     <div class="row">
     <div  class="mb-3 col-md-4">
         <lable for="price col-4" class="form-label">Price</lable>

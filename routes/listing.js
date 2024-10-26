@@ -24,7 +24,7 @@ router.get("/:id", wrapAsync(listingController.detailListing));
 //updating the details of properties
 
 router.get("/:id/edit",Auth,isOwner,wrapAsync(listingController.updateListingForm));
-router.post("/:id/edit",isOwner, wrapAsync(listingController.updateListing));
+router.post("/:id/edit",isOwner,upload.single('image'), wrapAsync(listingController.updateListing));
 
 //deleting list
 router.get("/:id/delete",isOwner, wrapAsync(listingController.destroyListing));
