@@ -179,8 +179,11 @@ input[type="radio"] {
 input[type="radio"]:checked ~ .star {
     color: #f39c12; 
 }
-
-
+#map {
+    height: 500px;
+    width: 100%;
+    margin: 20px 0;
+}
 
 
 
