@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const joiSchema = require("../models/joiSchema");
+const getCoordinates =require("../models/mapModel");
 
 module.exports.showListing = async (req,res)=>{
     delete req.session.redirectUrl;
@@ -34,6 +35,8 @@ module.exports.newListing = async (req, res, next) => {
     try {
       const list = new Listing(value);
       list.owner = req.user._id;
+      let geometry =  await getCoordinates(list.location +"," + list.country);
+      list.coordinates = geometry;
   
       await list.save();
       req.flash('success', 'Listing Created Successfully!');
@@ -60,6 +63,8 @@ module.exports.newListing = async (req, res, next) => {
         res.redirect("/Tripsy");
         
     }
+   
+
     res.render("detail", { list });
 }
 module.exports.updateListingForm = async (req, res) =>{
@@ -85,8 +90,8 @@ module.exports.updateListing = async (req, res, next) => {
        
       };
     }
-
-    console.log('Updated List:', list);
+    let geometry =  await getCoordinates(list.location +"," + list.country);
+      list.coordinates = geometry;
     const updatedListing = await Listing.findByIdAndUpdate(id, list, { 
       new: true, 
       runValidators: true ,

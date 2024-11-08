@@ -1,3 +1,4 @@
+const { number } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -22,6 +23,10 @@ let ListingSchema = new Schema({
     },
     country:{
         type:String,
+    },
+    coordinates:{
+        type:[Number],
+        required: true,
     },
     reviews: [
         {
