@@ -6,23 +6,206 @@ body{
     flex-direction: column;
     min-height: 100vh;
 }
-.container {
-    flex: 1;
-}
+
 /* -----------------navbar---------------- */
-.navbar{
+/* Navbar Styling */
+/* Navbar Wrapper */
+/* Navbar Wrapper */
+.navbar-wrapper {
+    position: relative;
+    z-index: 10;
+}
+
+/* Navbar Styling */
+.navbar {
+    height: 4.5rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+}
+
+/* Centering Search Box */
+.search-box {
+    background-color: white;
+    width: 40%; /* Adjust width as needed */
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Compass Icon */
+.fa-compass {
+    font-size: 3rem;
+    color: red;
+}
+
+/* Navbar Links */
+.nav-link {
+    font-weight: 500;
+    color: rgb(40, 40, 40);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+/* Navbar Flex Alignment */
+.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Align Login/Logout Links Horizontally */
+.login-logout .navbar-nav {
+    gap: 15px;
+}
+
+.input-group .form-control {
+    border: none;
+    border-right: 1px solid #ddd;
+   
+}
+
+.input-group .form-control:last-child {
+    border-right: none;
+}
+
+.search-btn {
+    border-radius: 0 50px 50px 0;
+    padding: 0 25px;
+    font-size: 1rem;
+    background-color: red !important;
+    border: none;
+}
+
+
+/* Filters Container */
+/* Filters Container */
+#filters-container {
+    position: fixed;
+    top: 4.4rem; /* Adjusted to place filters under the navbar */
+    width: 100%;
     height: 5rem;
+    background-color: #ffffff;
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+}
+
+/* Filters */
+#filters {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+/* Individual Filter Item */
+.filter {
+    flex: 0 0 auto;
+    margin-right: 2rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.filter:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.filter p {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* Icon styling */
+.filter i {
+    font-size: 1.5rem;
+    color: #555555;
+}
+
+/* Filter Link */
+.filter-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+/* Hide scrollbar for Webkit */
+#filters::-webkit-scrollbar {
+    display: none;
+}
+#filters {
+    scrollbar-width: none; /* For Firefox */
+}
+
+/* Tax Toggle Styling */
+.tax-toggle {
+    margin-left: auto;
+    padding-left: 1.5rem;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgb(171, 171, 171);
+    border-radius: 20px;
+    height: 3rem;
+}
+
+
+/* Filters */
+#filters {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     
 }
-.fa-compass {
-    font-size: 2.5rem !important;
-    color: red;
 
+/* Individual Filter Item */
+.filter {
+    flex: 0 0 auto;
+    margin-right: 3rem;
+    text-align: center;
+    opacity: 0.8;
 }
-.nav-link {
-    font-weight: 500 !important;
-    color: rgb(40, 40, 40) !important;
-    font-size: 1.2rem !important;
+
+.filter:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.filter p {
+    font-size: 0.8rem;
+}
+
+/* Icon styling */
+.filter i {
+    font-size: 1.5rem;
+    color: #555555;
+}
+
+/* Filter Link */
+.filter-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+/* Hide scrollbar */
+#filters-container::-webkit-scrollbar {
+    display: none;
+}
+#filters-container {
+    scrollbar-width: none;
+}
+.tax-toggle {
+    margin-left: 15rem; 
+    padding-left: 1.5rem;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgb(171, 171, 171);
+    border-radius: 20px;
+    height : 3rem;
+    width: 15rem;
 }
 
 /* --------------footer----------------- */
@@ -179,12 +362,21 @@ input[type="radio"] {
 input[type="radio"]:checked ~ .star {
     color: #f39c12; 
 }
+/* --------------map--------------- */
 #map {
-    height: 500px;
+    height: 400px;
     width: 100%;
-    margin: 20px 0;
+ /* Ensures that margin auto works properly */
+}
+.map-box {
+    width: 80%;
+    margin: 20px auto; /* Centering the map horizontally */
+    display: block;
 }
 
+/* ---------------------------------------------------------- */
 
-
+.tax-info {
+    display: none;
+}
 
