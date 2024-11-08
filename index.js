@@ -81,8 +81,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Home routes
-app.use("/", home);
 
 //user routes
 app.use("/", User);

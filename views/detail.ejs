@@ -45,10 +45,11 @@
             <label for="star3" class="star" style="cursor: pointer;">★</label>
             <input type="radio" name="rangeInput" id="star2" value="2" style="display: none;" />
             <label for="star2" class="star" style="cursor: pointer;">★</label>
-            <input type="radio" name="rangeInput" id="star1" value="1" style="display: none;" />
+            <input type="radio" name="rangeInput" id="star1" value="1" style="display: none;" checked /> <!-- Default to 1 star -->
             <label for="star1" class="star" style="cursor: pointer;">★</label>
         </div>
     </div>
+    
 
     <div class="mb-3">
         <label for="comment" class="form-label">Comment:</label>
@@ -58,9 +59,6 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-                
-                
-                
                
                 <br>
                 <h4>Reviews</h4>
@@ -101,9 +99,12 @@
         </div>
     </div>
     <br>
-    <hr>
+    <div class="map-box">
+        <hr>
     <h2>Where you’ll be</h2>
     <div id="map"></div>
+    </div>
+    
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         // Set coordinates from the server-side variables
@@ -117,10 +118,18 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     
+        // Add a circular light-colored marker around the location
+        L.circle(coordinates, {
+            color: 'lightblue', // Color of the circle's border
+            fillColor: 'lightblue', // Fill color of the circle
+            fillOpacity: 0.5, // Opacity of the circle fill
+            radius: 300 // Radius of the circle in meters
+        }).addTo(map);
+    
         // Add a marker at the listing’s location
         L.marker(coordinates)
             .addTo(map)
-            .bindPopup("<%= list.title %>")  // Optional: display listing title in the popup
+            .bindPopup("Exact location will be provided after booking") // Optional: display listing title in the popup
             .openPopup();
     </script>
     
