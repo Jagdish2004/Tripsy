@@ -1,53 +1,68 @@
 <% layout('/layout/boilerplate') -%>
 <body>
-    <div class="row">
+  <div class="row">
+    <div class="col-6 offset-2">
+      <br>
+      <h2>Create a New Listing</h2>
+      <form method="POST" action="/Tripsy/newProperty?_method=PUT" enctype="multipart/form-data">
         
-        <div class="col-6 offset-2">
-            <br>
-    <h2>Create a New Listing</h2>
-    <form method="POST" action ="/Tripsy/newProperty?_method = PUT" enctype="multipart/form-data">
+        <!-- Title Field -->
         <div class="mb-3">
-            <label for="Title" class= "form-label" >Title</label>
-            <input id="title" type="text" name ="title" placeholder="Enter Title" class="form-control" required>
+          <label for="Title" class="form-label">Title</label>
+          <input id="title" type="text" name="title" placeholder="Enter Title" class="form-control" required>
         </div>
        
-        <div  class="mb-3">
-            <label for="Image" class="form-label">Upload Image</label>
-            <br>
-            <input id="image" for="image" type="file" name="image" class="form-control">
-        </div>
-        <div class="row">
-        <div  class="mb-3 col-md-4">
-            <label for="price col-4" class="form-label">Price</label>
-            <br>
-            <input id="Price"type= "number" name ="price" placeholder="Price" class="form-control" required>
-
-        </div >
-        <div  class="mb-3 col-md-8">
-            <label for="country" class="form-label" >country</label>
-            <br>
-            <input id="country" for="country" type="text" name="country" placeholder="Country Name" class="form-control" required>
-           
-        </div>
-    </div>
-        
+        <!-- Image Upload Field -->
         <div class="mb-3">
-            <label for="description" class="form-label" >description</label>
-            <br>
-            <textarea id="description" for="description" name="description" placeholder="Description" class="form-control" required ></textarea>
+          <label for="Image" class="form-label">Upload Image</label>
+          <br>
+          <input id="image" type="file" name="image" class="form-control">
         </div>
-        
-        
-        <div  class="mb-3">
-             <label for="location" class="form-label">location</label>
-             <br>
-            <textarea id="location" name="location" placeholder="Address" class="form-control" required></textarea>
-           
-        </div >
-         
-        <button class="btn btn-dark mb-3 add-btn">Add</button>
 
-    </form>
+        <!-- Price and Country Fields -->
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input id="Price" type="number" name="price" placeholder="Price" class="form-control" required>
+          </div>
+          <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input id="country" type="text" name="country" placeholder="Country Name" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="description" placeholder="Description" class="form-control" required></textarea>
+        </div>
+
+        <!-- Location Field -->
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <textarea id="location" name="location" placeholder="Address" class="form-control" required></textarea>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select name="category" id="category" class="form-control">
+            <option value="trending">Other</option>
+            <option value="rooms">Rooms</option>
+            <option value="cities">Cities</option>
+            <option value="mountains">Mountains</option>
+            <option value="castles">Castles</option>
+            <option value="beach/pools">Beach/Pools</option>
+            <option value="camping">Camping</option>
+            <option value="arctic">Arctic</option>
+            <option value="farm">Farm</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-dark mb-3 add-btn">Add</button>
+      
+      </form>
+    </div>
   </div>
-</div>
 </body>

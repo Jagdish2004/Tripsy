@@ -4,15 +4,15 @@
 
   <div id="filters-container" class="sticky-top">
     <div id="filters" class="d-flex mb-4">
-      <div class="filter"><a href="/listings/category/Trending" class="filter-link"><i class="fa-solid fa-fire"></i><p>Trending</p></a></div>
-      <div class="filter"><a href="/listings/category/Rooms" class="filter-link"><i class="fa-solid fa-bed"></i><p>Rooms</p></a></div>
-      <div class="filter"><a href="/listings/category/Cities" class="filter-link"><i class="fa-solid fa-city"></i><p>Cities</p></a></div>
-      <div class="filter"><a href="/listings/category/Mountains" class="filter-link"><i class="fa-solid fa-mountain"></i><p>Mountains</p></a></div>
-      <div class="filter"><a href="/listings/category/Castles" class="filter-link"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></a></div>
-      <div class="filter"><a href="/listings/category/Amazing Pools" class="filter-link"><i class="fa-solid fa-person-swimming"></i><p>Beach/Amazing Pools</p></a></div>
-      <div class="filter"><a href="/listings/category/Camping" class="filter-link"><i class="fa-solid fa-campground"></i><p>Camping</p></a></div>
-      <div class="filter"><a href="/listings/category/Arctic" class="filter-link"><i class="fa-regular fa-snowflake"></i><p>Arctic</p></a></div>
-      <div class="filter"><a href="/listings/category/Farm" class="filter-link"><i class="fa-solid fa-cow"></i><p>Farm</p></a></div>
+      <div class="filter"><a href="/tripsy" class="filter-link"><i class="fa-solid fa-fire"></i><p>Trending</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/rooms" class="filter-link"><i class="fa-solid fa-bed"></i><p>Rooms</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/cities" class="filter-link"><i class="fa-solid fa-city"></i><p>Cities</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/mountains" class="filter-link"><i class="fa-solid fa-mountain"></i><p>Mountains</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/castles" class="filter-link"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/beach" class="filter-link"><i class="fa-solid fa-person-swimming"></i><p>Beach/Amazing Pools</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/camping" class="filter-link"><i class="fa-solid fa-campground"></i><p>Camping</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/arctic" class="filter-link"><i class="fa-regular fa-snowflake"></i><p>Arctic</p></a></div>
+      <div class="filter"><a href="/tripsy/filter/farm" class="filter-link"><i class="fa-solid fa-cow"></i><p>Farm</p></a></div>
   
       <!-- Tax Toggle Switch -->
       <div class="tax-toggle">
@@ -34,6 +34,7 @@
           <img src="<%= list.image.url %>" class="card-img-top" alt="<%= list.image.filename %>">
           <div class="card-img-overlay"></div>
           <div class="card-body">
+            <br>
             <h5 class="card-title"><b><%= list.title %></b></h5>
             <p>
               &#8377; <%= Number(list.price).toLocaleString('en-IN') %> /Night

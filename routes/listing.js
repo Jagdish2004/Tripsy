@@ -29,4 +29,8 @@ router.post("/:id/edit",isOwner,upload.single('image'), wrapAsync(listingControl
 //deleting list
 router.get("/:id/delete",isOwner, wrapAsync(listingController.destroyListing));
 
+//filter listing
+router.get("/filter/:category", wrapAsync(listingController.filterListing) );
+router.get("/search/:location", wrapAsync(listingController.searchListing) );
+
 module.exports = router;
