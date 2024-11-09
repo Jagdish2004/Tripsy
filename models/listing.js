@@ -24,6 +24,11 @@ let ListingSchema = new Schema({
     country:{
         type:String,
     },
+    category: {
+        type: String,
+        enum: ["other", "rooms", "cities", "mountains", "castles", "beach", "camping", "arctic", "farm" ,"trending"],
+        required: true,
+      },
     coordinates:{
         type:[Number],
         required: true,

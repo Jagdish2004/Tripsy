@@ -10,6 +10,7 @@ const joiSchema = Joi.object({
     description: Joi.string().required(),
     country: Joi.string().required(),
     location: Joi.string().required(),
+    category: Joi.string().valid("trending", "rooms", "cities", "mountains", "castles", "beach/pools", "camping", "arctic", "farm", "other").required()
 });
 
 module.exports = joiSchema;

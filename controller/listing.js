@@ -96,6 +96,7 @@ module.exports.updateListing = async (req, res, next) => {
       new: true, 
       runValidators: true ,
     });
+    console.log(updatedListing)
 
     if (!updatedListing) {
       req.flash('error', 'Listing not found!');
@@ -118,3 +119,24 @@ module.exports.destroyListing = async (req, res) =>{
     res.redirect("/Tripsy");
     
 }
+module.exports.filterListing = async (req,res)=>{
+  let {category} = req.params;
+  let listing = await Listing.find({category: category});
+  res.render("index",{listing});
+
+}
+module.exports.searchListing = async (req, res) => {
+  let { location } = req.params;
+
+  let listing = await Listing.find({
+    $or: [
+      { title: { $regex: new RegExp(location, 'i') } },
+      { description: { $regex: new RegExp(location, 'i') } },
+      { location: { $regex: new RegExp(location, 'i') } },
+      { country: { $regex: new RegExp(location, 'i') } },
+    ]
+  });
+
+  res.render("index", { listing });
+};
+

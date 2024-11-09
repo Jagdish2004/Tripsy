@@ -45,7 +45,26 @@
         <textarea name="location" placeholder="Address" class="form-control" required><%=list.location%></textarea>
        
     </div >
+
+     <!-- Category Dropdown -->
+     <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="category" id="category" class="form-control">
+            <option value="other" <%= list.category === "other" ? "selected" : "" %>>Other</option>
+            <option value="rooms" <%= list.category === "rooms" ? "selected" : "" %>>Rooms</option>
+            <option value="cities" <%= list.category === "cities" ? "selected" : "" %>>Cities</option>
+            <option value="mountains" <%= list.category === "mountains" ? "selected" : "" %>>Mountains</option>
+            <option value="castles" <%= list.category === "castles" ? "selected" : "" %>>Castles</option>
+            <option value="beach/pools" <%= list.category === "beach/pools" ? "selected" : "" %>>Beach/Pools</option>
+            <option value="camping" <%= list.category === "camping" ? "selected" : "" %>>Camping</option>
+            <option value="arctic" <%= list.category === "arctic" ? "selected" : "" %>>Arctic</option>
+            <option value="farm" <%= list.category === "farm" ? "selected" : "" %>>Farm</option>
+        </select>
+    </div>
+    
+
     <button class="btn btn-dark mb-3 add-btn">Edit</button>
+    
 </form>
 </div>
 

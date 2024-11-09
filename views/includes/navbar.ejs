@@ -9,17 +9,18 @@
         </div>
 
        <!-- Search Box -->
-<div class="search-box">
-  <div class="input-group" style="height: 50px;">
-      <input type="text" class="form-control" placeholder="Location" aria-label="Location" style="height: 50px;">
-      <input type="date" class="form-control" placeholder="Check-in" aria-label="Check-in" style="height: 50px;">
-      <input type="date" class="form-control" placeholder="Check-out" aria-label="Check-out" style="height: 50px;">
+       <div class="search-box">
+        <form class="input-group" style="height: 50px;" id="searchForm" method="GET">
+            <input type="text" class="form-control" placeholder="Location" aria-label="Location" id="locationInput" name="location" style="height: 50px;" required>
+            <input type="date" class="form-control" placeholder="Check-in" aria-label="Check-in" name="checkin" style="height: 50px;">
+            <input type="date" class="form-control" placeholder="Check-out" aria-label="Check-out" name="checkout" style="height: 50px;">
       
-      <button class="btn-primary search-btn" type="button" style="height: 50px;">
-          <i class="bi bi-search"></i> Search
-      </button>
-  </div>
-</div>
+            <button class="btn-primary search-btn" type="button" style="height: 50px;" onclick="submitSearch()">
+                <i class="bi bi-search"></i> Search
+            </button>
+        </form>
+      </div>
+      
 
         <!-- Login/Logout Links -->
         <div class="login-logout">
@@ -36,6 +37,20 @@
         </div>
     </div>
 </nav>
+
+<!-- search empty logic -->
+<script>
+    function submitSearch() {
+        const location = document.getElementById('locationInput').value;
+        if (location) {
+            // Set the form action with the location in the path
+            document.getElementById('searchForm').action = `/tripsy/search/${encodeURIComponent(location)}`;
+            document.getElementById('searchForm').submit();
+        } else {
+            alert('Please enter a location');
+        }
+    }
+  </script>
 
 
  
