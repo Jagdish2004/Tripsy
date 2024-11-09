@@ -37,7 +37,7 @@ main().then(() => {
 }).catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Tripsy');
+    await mongoose.connect(process.env.MONGO_DB_ATLAS);
 }
 
 // Starting the server
