@@ -87,10 +87,10 @@ app.use("/", User);
 
 
 // Listing routes
-app.use("/", listings);
+app.use("/Tripsy", listings);
 
 // Review routes
-app.use("/:id/review", reviews);
+app.use("/Tripsy/:id/review", reviews);
 
 
 
