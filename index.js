@@ -15,6 +15,7 @@ const userSchema =require('./models/user.js');
 const methodOverride = require('method-override');
 const expressError = require('./utils/expressError');
 const session = require('express-session');
+const MongoStore = require('connect-mongo'); 
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -36,8 +37,10 @@ main().then(() => {
     console.log("connected to mongoDB");
 }).catch(err => console.log(err));
 
+//'mongodb://127.0.0.1:27017/Tripsy'----->localhost db
+
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Tripsy');
+    await mongoose.connect(process.env.MONGO_DB_ATLAS);
 }
 
 // Starting the server
@@ -46,10 +49,20 @@ app.listen(port, () => {
     console.log(`listening on port: ${port}`);
 });
 
+const store = MongoStore.create({
+    mongoUrl: process.env.MONGO_DB_ATLAS,
+    crypto:{
+        secret:process.env.SECRET_CODE,
+    },touchAfter:24 * 3600,   
+});
+store.on("error",()=>{
+    console.log("err in session" , err);
 
+});
 // session && flash settings
 const sessioninfo = {
-    secret: 'ThisIsSoSecret',
+    store,
+    secret: process.env.SECRET_CODE,
     resave: false,  
     saveUninitialized: false,
     cookie: {
@@ -59,6 +72,8 @@ const sessioninfo = {
         sameSite: 'Lax',
     },
 };
+
+
 app.use(session(sessioninfo));
 app.use(flash());
 app.use(cookieParser());
