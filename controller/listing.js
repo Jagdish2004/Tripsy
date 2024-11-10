@@ -4,7 +4,8 @@ const getCoordinates =require("../models/mapModel");
 
 module.exports.showListing = async (req,res)=>{
     delete req.session.redirectUrl;
-    let listing = await Listing.find();
+      let listing = await Listing.find();
+    
     res.render("index",{listing});
 
 }
