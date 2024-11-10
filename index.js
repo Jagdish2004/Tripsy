@@ -91,7 +91,9 @@ app.use((req, res, next) => {
     next();
 });
 
-
+app.get("/",(req,res)=>{
+  res.redirect("/Tripsy");
+});
 //user routes
 app.use("/", User);
 
