@@ -53,8 +53,7 @@ const store = MongoStore.create({
     mongoUrl: process.env.MONGO_DB_ATLAS,
     crypto:{
         secret: process.env.SECRET_CODE,
-    },touchAfter:24 * 3600,
-     
+    },touchAfter:24 * 3600, 
 });
 
 // session && flash settings
@@ -95,7 +94,9 @@ app.use((req, res, next) => {
 //user routes
 app.use("/", User);
 
-
+app.get("/",(req,res)=>{
+  res.redirect("/Tripsy");
+});
 // Listing routes
 app.use("/Tripsy", listings);
 
