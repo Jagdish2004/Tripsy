@@ -1,7 +1,7 @@
 # Tripsy -Web to Find Your Stay
 
 ## Live Demo
-[Visit Tripsy](https://tripsy1-peach.vercel.app/)
+[Visit Tripsy](https://tripsy-rbto7nim7-jagdish2004s-projects.vercel.app/)
 
 ## Description
 Tripsy is an Airbnb-inspired platform where users can book stays, create listings, and manage reviews. It offers a user-friendly interface with seamless CRUD operations and robust authentication and authorization mechanisms.
