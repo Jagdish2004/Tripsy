@@ -25,7 +25,7 @@ module.exports.newListing = async (req, res, next) => {
       { abortEarly: false }
     );
   
-    if (error) {
+    if (error){
       console.log(error);
       return res.status(400).json({
         status: 'error',

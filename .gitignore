@@ -1,2 +1,9 @@
-.env
+# Node modules
 node_modules/
+
+# Optional npm cache directory
+.npm/
+
+#envs
+.env
+.env.*.local

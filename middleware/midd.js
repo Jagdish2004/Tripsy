@@ -39,7 +39,7 @@ module.exports.isReviewOwner = async(req,res,next)=>{
     let {reviewId,id} = req.params;
     let review = await Review.findById(reviewId);
      if(!res.locals.currUser._id.equals(review.owner._id)){ 
-        req.flash('error', 'Only Writer an delete review');
+        req.flash('error', 'Only Writer can delete review');
         return res.redirect(`/Tripsy/${id}`);
      }
      next();
